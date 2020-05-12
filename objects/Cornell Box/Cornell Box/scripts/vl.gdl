@@ -1,0 +1,28 @@
+﻿! ––– PARAM script ––– !
+
+
+values "box_size", 5.55, custom
+lock  "A", "B", "zzyzx"
+
+parameters  A = box_size,
+            B = box_size,
+            zzyzx = box_size
+
+
+ac_bottomlevel = GLOB_ELEVATION + GLOB_HSTORY_ELEV
+ac_toplevel = GLOB_ELEVATION + GLOB_HSTORY_ELEV + ZZYZX
+
+parameters  ac_bottomlevel = ac_bottomlevel,
+            ac_toplevel = ac_toplevel
+
+if b_boxmat_link then
+    lock  "mat_box_small", "mat_box_big"
+    parameters  mat_box_small = mat_white,
+                mat_box_big = mat_white
+endif
+
+values "screen_width",  range [0.1,]
+values "screen_height", range [0.1,]
+
+
+values "box_pen", range [1, 255]

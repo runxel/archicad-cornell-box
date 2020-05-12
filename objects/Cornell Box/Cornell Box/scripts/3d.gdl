@@ -1,0 +1,97 @@
+﻿! ––– 3D script ––– !
+! Cornell Box by runxel !
+! dimensions by Pete Shirly
+! <http://web.archive.org/web/20200512140208/http://psgraphics.blogspot.com/2015/07/slightly-simplified-cornell-box-data.html>
+
+pen  box_pen
+
+! THE WALLS:
+rotz  90
+    material  mat_green
+    gosub "Wall"  ! left
+    addy -box_size
+        material  mat_red
+        gosub "Wall"  ! right
+del 2
+addy  box_size
+    material  mat_white
+    gosub "Wall"   ! back
+del 1
+rotx -90
+    gosub "Wall"  ! floor 
+    addy -box_size
+        gosub "Wall"  ! ceiling
+del 2
+
+if b_screen then gosub "Screen"
+
+
+! THE BLOCKS:
+small_size = box_size / 3.364
+big_size = box_size / 3.364
+big_height = box_size / 1.68
+
+
+add  box_size/1.306, box_size/8.54, 0
+rotz  90-18
+    material  mat_box_small
+    block  small_size, small_size, small_size
+del 2
+
+add  box_size/1.91, box_size/1.73, 0
+rotz 90+22.5
+    material  mat_box_big
+    block  big_size, big_size, big_height
+del 2
+
+END  ! -- END -- END -- END -- END -- END -- END -- END -- END -- END -- !
+! ---------------------------------------------------------------------- !
+
+
+
+! ---------------------------------------------------------------------- !
+"Wall":
+    plane  4, 
+           0, 0, 0,
+           0, 0, box_size, !up-left
+           box_size, 0, box_size, !up-right
+           box_size, 0, 0
+return
+
+
+! ---------------------------------------------------------------------- !
+"Screen":
+    material  mat_black
+    rotx 90
+        poly_  10,
+               -screen_width, -screen_height, 1,
+               screen_width*2 + box_size, 0, 101, 
+               0, screen_height*2 + box_size, 101,
+               -(screen_width*2 + box_size), 0, 101,
+               0, 0, 701,
+               ! hole
+               0, 0, 601,
+               box_size, 0, 101,
+               0, box_size, 101,
+               -box_size, 0, 101,
+               0, 0, 701
+    del 1
+
+    ! hotspots for black screen
+    ! left
+    hotspot   0, 0, box_size/2, unID, screen_width, 1+128          : unID=unID+1 !base
+    hotspot   -screen_width, 0, box_size/2, unID, screen_width, 2  : unID=unID+1 !move
+    hotspot   1, 0, box_size/2, unID, screen_width, 3              : unID=unID+1 !ref
+    ! right
+    hotspot   box_size, 0, box_size/2, unID, screen_width, 1+128             : unID=unID+1 !base
+    hotspot   box_size + screen_width, 0, box_size/2, unID, screen_width, 2  : unID=unID+1 !move
+    hotspot   -1, 0, box_size/2, unID, screen_width, 3                       : unID=unID+1 !ref
+    ! top
+    hotspot   box_size/2, 0, box_size, unID, screen_height, 1+128              : unID=unID+1 !base
+    hotspot   box_size/2, 0, box_size + screen_height, unID, screen_height, 2  : unID=unID+1 !move
+    hotspot   box_size/2, 0, -1, unID, screen_height, 3                        : unID=unID+1 !ref
+    ! bottom
+    hotspot   box_size/2, 0, 0, unID, screen_height, 1+128               : unID=unID+1 !base
+    hotspot   box_size/2, 0, -screen_height, unID, screen_height, 2      : unID=unID+1 !move
+    hotspot   box_size/2, 0, 1, unID, screen_height, 3                   : unID=unID+1 !ref
+return
