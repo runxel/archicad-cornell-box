@@ -1,5 +1,5 @@
 # .gitignore
 
 # don't add unarchived Archicad plans
-.pln
-.bpn
+*.pln
+*.bpn
