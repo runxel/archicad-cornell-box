@@ -1,0 +1,24 @@
+# EditorConfig for https://github.com/runxel/archicad-cornell-box
+# see docs at https://EditorConfig.org
+
+root = true
+
+[*]
+end_of_line = crlf
+
+[*.{gdl, xml}]
+charset = utf-8-bom
+indent_size = 4
+
+[*.gdl]
+indent_style = space
+insert_final_newline = true
+
+[*.xml]
+indent_style = tab
+insert_final_newline = false
+
+[*.md]
+charset = utf-8
+indent_style = tab
+indent_size = 4
