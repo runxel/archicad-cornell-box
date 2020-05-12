@@ -3,3 +3,7 @@
 # don't add unarchived Archicad plans
 *.pln
 *.bpn
+
+# don't add editor thingies
+.vscode
+*.sublime-*
